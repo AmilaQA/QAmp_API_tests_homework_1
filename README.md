@@ -16,17 +16,24 @@ Note: Remember to avoid sharing your personal credentials on GitHub
 repositories.
 ____________________________________________________________________
 Smoke test is a quick and basic test that verifies if the critical functionalities of an application or API are working correctly.
+
 •	For the Restful Booker API, a smoke test can include:
+
 •	Testing the authentication mechanism (login) – POST request;
+
 •	Creating a new booking – POST request;
+
 •	Retrieving a specific booking, a booking that was created in previous method – GET request;
+
 •	Updating a booking by changing almost all elements – PUT request;
+
 •	Partial updating of booking by changing first name and last name – PATCH request; 
+
 •	Deleting a booking we previously created – DELETE request.
 
 
 
-
+_______________________________________________________________________________
 
 
 
