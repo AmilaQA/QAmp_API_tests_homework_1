@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "00290bd8-8af7-4a71-8ae9-d9db1720755d",
+		"name": "PlaceLab_API testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24657427"
+	},
+	"item": [
+		{
+			"name": "Login_Positive TC",
+			"item": [
+				{
+					"name": "Valid credentials-token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const responseJson = pm.response.json();\r",
+									"const token = responseJson.api_token;\r",
+									"\r",
+									"pm.test('Token is present', () => {\r",
+									"  pm.expect(token).to.exist;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"{{email}}\",\r\n    \"password\":\"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v2/sessions",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v2",
+								"sessions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login_negative TC",
+			"item": [
+				{
+					"name": "Empty credentials fields",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Content-Type is present\", function () {\r",
+									"    pm.response.to.have.header(\"Content-Type\");\r",
+									"});\r",
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://demo.placelab.com/api/v2/sessions",
+							"protocol": "https",
+							"host": [
+								"demo",
+								"placelab",
+								"com"
+							],
+							"path": [
+								"api",
+								"v2",
+								"sessions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Valid email-Invalid password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201,202]);\r",
+									"});\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{email}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{invalidPassword}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://demo.placelab.com/api/v2/sessions",
+							"protocol": "https",
+							"host": [
+								"demo",
+								"placelab",
+								"com"
+							],
+							"path": [
+								"api",
+								"v2",
+								"sessions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid email-Valid Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.get(\"invalidEmail\");\r",
+									"pm.collectionVariables.get(\"environment\");\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "{{invalidEmail}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://demo.placelab.com/api/v2/sessions",
+							"protocol": "https",
+							"host": [
+								"demo",
+								"placelab",
+								"com"
+							],
+							"path": [
+								"api",
+								"v2",
+								"sessions"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
